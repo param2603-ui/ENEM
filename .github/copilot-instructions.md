@@ -1,0 +1,5 @@
+- [x] Verify project scaffolding is complete in the current workspace.
+- [x] Install dependencies using `npm install`.
+- [x] Build and validate the React + TypeScript app.
+- [x] Keep the project structure clean with `src/components` and `src/assets`.
+- [x] Provide run instructions in `README.md`.
