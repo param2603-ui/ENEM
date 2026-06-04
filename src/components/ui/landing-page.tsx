@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Globe from "@/components/ui/Globe";
+import SpaceBackground from "@/components/ui/space-background";
 import { cn } from "@/lib/utils";
 
 // Reusable ScrollGlobe component following shadcn/ui patterns
@@ -36,25 +37,54 @@ const defaultGlobeConfig = {
 // Parse percentage string to number
 const parsePercent = (str: string): number => parseFloat(str.replace('%', ''));
 
-const Navbar = ({ isVisible }: { isVisible: boolean }) => (
+const Navbar = ({ isVisible, mobileMenuOpen, toggleMobileMenu }: { isVisible: boolean; mobileMenuOpen: boolean; toggleMobileMenu: () => void }) => (
   <nav className={cn(
-    "fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 py-4 bg-background/80 backdrop-blur-md border-b border-border/30 transition-all duration-300",
+    "fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border/30 transition-all duration-300",
     isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
   )}>
-    <div className="flex items-center gap-3">
-      <img 
-  src="/logo.png" 
-  alt="ENEM Corporation" 
-  style={{ height: '100px', width: 'auto' }} 
-/>
-      <span className="font-semibold text-foreground text-sm hidden sm:block">ENEM Corporation</span>
+    <div className="flex items-center justify-between px-4 py-4 sm:px-4 sm:py-4">
+      <div className="flex items-center gap-3">
+        <img
+          src="/logo.png"
+          alt="ENEM Corporation"
+          className="h-14 w-auto sm:h-10"
+        />
+        <span className="font-semibold text-foreground text-base sm:text-lg">ENEM Corporation</span>
+      </div>
+
+      <div className="hidden sm:flex items-center gap-6 text-base text-muted-foreground">
+        <a href="#hero" className="hover:text-foreground transition-colors">Home</a>
+        <a href="#about" className="hover:text-foreground transition-colors">About</a>
+        <a href="#products" className="hover:text-foreground transition-colors">Products</a>
+        <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
+        <a href="mailto:Info@enemcorporation.com" className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">Get a Quote</a>
+      </div>
+
+      <button
+        type="button"
+        onClick={toggleMobileMenu}
+        className="flex sm:hidden items-center justify-center rounded-md p-2 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
+        aria-expanded={mobileMenuOpen}
+        aria-label="Toggle navigation menu"
+      >
+        <div className="space-y-1">
+          <span className="block h-0.5 w-6 bg-current" />
+          <span className="block h-0.5 w-6 bg-current" />
+          <span className="block h-0.5 w-6 bg-current" />
+        </div>
+      </button>
     </div>
-    <div className="flex items-center gap-6 text-sm text-muted-foreground">
-      <a href="#hero" className="hover:text-foreground transition-colors">Home</a>
-      <a href="#about" className="hover:text-foreground transition-colors">About</a>
-      <a href="#products" className="hover:text-foreground transition-colors">Products</a>
-      <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
-      <a href="mailto:Info@enemcorporation.com" className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition-colors">Get a Quote</a>
+
+    <div className={cn(
+      "sm:hidden overflow-hidden transition-all duration-300",
+      mobileMenuOpen ? "max-h-[400px]" : "max-h-0"
+    )}>
+      <div className="flex flex-col gap-2 px-4 pb-4 pt-2 text-base text-muted-foreground bg-background/95 border-t border-border/30 backdrop-blur-md">
+        <a href="#hero" onClick={toggleMobileMenu} className="block rounded-md px-3 py-2 hover:bg-background/80">Home</a>
+        <a href="#about" onClick={toggleMobileMenu} className="block rounded-md px-3 py-2 hover:bg-background/80">About</a>
+        <a href="#products" onClick={toggleMobileMenu} className="block rounded-md px-3 py-2 hover:bg-background/80">Products</a>
+        <a href="#contact" onClick={toggleMobileMenu} className="block rounded-md px-3 py-2 hover:bg-background/80">Contact</a>
+      </div>
     </div>
   </nav>
 );
@@ -64,11 +94,14 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
   const [scrollProgress, setScrollProgress] = useState(0);
   const [globeTransform, setGlobeTransform] = useState("");
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const animationFrameId = useRef<number | null>(null);
   const navLabelTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
   
   // Pre-calculate positions for performance
   const calculatedPositions = useMemo(() => {
@@ -171,14 +204,18 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
       )}
     >
       {/* Conditional Navbar - Hidden on hero, visible after scroll */}
-      <Navbar isVisible={activeSection !== 0} />
+      <Navbar isVisible={activeSection !== 0} mobileMenuOpen={mobileMenuOpen} toggleMobileMenu={toggleMobileMenu} />
 
-      {/* Hero Logo - Top center, visible only on hero */}
-      <div className={cn(
-        "fixed top-0 left-1/2 -translate-x-1/2 z-50 p-4 sm:p-6 md:p-8 transition-all duration-300",
-        activeSection === 0 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
-      )}>
-        <img src="/logo.png" alt="ENEM Corporation" className="h-32 sm:h-40 md:h-52 lg:h-64 w-auto" />
+      {/* Hero Logo with animated background */}
+      <div className="relative z-0">
+        <SpaceBackground className="fixed inset-0 z-0 pointer-events-none" />
+
+        <div className={cn(
+          "fixed top-0 left-1/2 -translate-x-1/2 z-50 p-4 sm:p-6 md:p-8 transition-all duration-300",
+          activeSection === 0 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
+        )}>
+          <img src="/logo.png" alt="ENEM Corporation" className="h-32 sm:h-40 md:h-52 lg:h-64 w-auto" />
+        </div>
       </div>
 
       {/* Progress Bar */}
@@ -255,18 +292,18 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
 
       {/* Dynamic sections - fully responsive */}
       {sections.map((section, index) => (
-        <section
-          id={section.id}
-          key={section.id}
-          ref={(el) => { sectionRefs.current[index] = el }}
-          className={cn(
-            "relative min-h-[70vh] sm:min-h-screen flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 z-20 py-8 sm:py-12 lg:py-20",
-            "w-full max-w-full overflow-hidden",
-            section.align === 'center' && "items-center text-center",
-            section.align === 'right' && "items-end text-right",
-            section.align !== 'center' && section.align !== 'right' && "items-start text-left"
-          )}
-        >
+        <div key={section.id} className="w-full">
+          <section
+            id={section.id}
+            ref={(el) => { sectionRefs.current[index] = el }}
+            className={cn(
+              "relative min-h-[70vh] sm:min-h-screen flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 z-20 py-8 sm:py-12 lg:py-20",
+              "w-full max-w-full overflow-hidden",
+              section.align === 'center' && "items-center text-center",
+              section.align === 'right' && "items-end text-right",
+              section.align !== 'center' && section.align !== 'right' && "items-start text-left"
+            )}
+          >
           <div className={cn(
             "w-full max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-5xl will-change-transform transition-all duration-700",
             "opacity-100 translate-y-0"
@@ -421,6 +458,18 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
             )}
           </div>
         </section>
+        {index < sections.length - 1 && (
+          <div className="mx-auto w-full overflow-hidden py-2">
+            <div
+              className="h-10 w-full"
+              style={{
+                background: 'linear-gradient(90deg, rgba(59,130,246,0.35) 0%, rgba(96,165,250,0.25) 50%, rgba(59,130,246,0.35) 100%)',
+                clipPath: 'polygon(0 45%, 5% 55%, 10% 40%, 15% 60%, 20% 45%, 25% 65%, 30% 50%, 35% 70%, 40% 55%, 45% 75%, 50% 60%, 55% 80%, 60% 65%, 65% 85%, 70% 70%, 75% 90%, 80% 75%, 85% 95%, 90% 80%, 95% 100%, 100% 85%, 100% 100%, 0% 100%)',
+              }}
+            />
+          </div>
+        )}
+      </div>
       ))}
 
       {isFormOpen && (
