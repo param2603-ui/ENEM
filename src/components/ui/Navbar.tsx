@@ -25,7 +25,7 @@ export default function Navbar({ isVisible = true, mobileMenuOpen, toggleMobileM
             <img
               src="/logo.png"
               alt="ENEM Corporation"
-              className="h-14 w-auto sm:h-10"
+              className="h-16 w-auto sm:h-20 object-contain scale-[1.15] origin-left"
             />
           </Link>
           <Link to="/" onClick={handleLinkClick}>

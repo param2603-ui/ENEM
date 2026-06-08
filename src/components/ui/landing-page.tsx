@@ -540,13 +540,13 @@ export default function GlobeScrollDemo() {
     {
       id: "contact",
       badge: "Contact",
-      title: "Get In",
+      title: "",
       subtitle: "Get In Touch",
       description: "Reach out to our team for sourcing inquiries, pricing, or partnership opportunities. We ensure a response within 24 hours.",
       align: "center" as const,
       features: [
-        { title: "Nitin Mavar", description: "+91 6352-688331" },
         { title: "Shivam Acharya", description: "+91 9428897772" },
+        { title: "Nitin Mavar", description: "+91 6352-688331" },
         { title: "Email", description: "Info@enemcorporation.com" },
         { title: "Location", description: "Ahmedabad, Gujarat, India" }
       ],

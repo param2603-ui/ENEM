@@ -9,8 +9,8 @@ export default function ContactPage() {
   ]
 
   return (
-    <PageLayout 
-      title="Get In Touch" 
+    <PageLayout
+      title="Get In Touch"
       subtitle="Let's Start a Partnership"
       description="Whether you're looking for specific raw materials or seeking a reliable trade partner, our team is ready to assist you."
     >
@@ -29,8 +29,7 @@ export default function ContactPage() {
           <div className="glass-card rounded-2xl p-6 bg-primary/5 border-primary/10">
             <h3 className="text-lg font-bold mb-2">Office Location</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Ahmedabad, Gujarat,<br />
-              India
+              B-1204 INFINITY TOWER PRAHLADNAGAR NEAR RAMADA HOTEL CORPORATE ROAD Ahmedabad, Gujarat, India
             </p>
           </div>
         </div>
@@ -43,16 +42,16 @@ export default function ContactPage() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-muted-foreground ml-1">Full Name</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     placeholder="John Doe"
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-muted-foreground ml-1">Email Address</label>
-                  <input 
-                    type="email" 
+                  <input
+                    type="email"
                     placeholder="john@example.com"
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
                   />
@@ -61,8 +60,8 @@ export default function ContactPage() {
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-muted-foreground ml-1">Subject</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Product Inquiry"
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
                 />
@@ -70,7 +69,7 @@ export default function ContactPage() {
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-muted-foreground ml-1">Message</label>
-                <textarea 
+                <textarea
                   rows={5}
                   placeholder="How can we help you?"
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
