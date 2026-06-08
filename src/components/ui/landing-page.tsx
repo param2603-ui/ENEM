@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import Globe from "@/components/ui/Globe";
 import SpaceBackground from "@/components/ui/space-background";
+import Navbar from "@/components/ui/Navbar";
 import { cn } from "@/lib/utils";
 
 // Reusable ScrollGlobe component following shadcn/ui patterns
@@ -36,58 +37,6 @@ const defaultGlobeConfig = {
 
 // Parse percentage string to number
 const parsePercent = (str: string): number => parseFloat(str.replace('%', ''));
-
-const Navbar = ({ isVisible, mobileMenuOpen, toggleMobileMenu }: { isVisible: boolean; mobileMenuOpen: boolean; toggleMobileMenu: () => void }) => (
-  <nav className={cn(
-    "fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border/30 transition-all duration-300",
-    isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
-  )}>
-    <div className="flex items-center justify-between px-4 py-4 sm:px-4 sm:py-4">
-      <div className="flex items-center gap-3">
-        <img
-          src="/logo.png"
-          alt="ENEM Corporation"
-          className="h-14 w-auto sm:h-10"
-        />
-        <span className="font-semibold text-foreground text-base sm:text-lg">ENEM Corporation</span>
-      </div>
-
-      <div className="hidden sm:flex items-center gap-6 text-base text-muted-foreground">
-        <a href="#hero" className="hover:text-foreground transition-colors">Home</a>
-        <a href="#about" className="hover:text-foreground transition-colors">About</a>
-        <a href="#products" className="hover:text-foreground transition-colors">Products</a>
-        <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
-        <a href="mailto:Info@enemcorporation.com" className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">Get a Quote</a>
-      </div>
-
-      <button
-        type="button"
-        onClick={toggleMobileMenu}
-        className="flex sm:hidden items-center justify-center rounded-md p-2 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40"
-        aria-expanded={mobileMenuOpen}
-        aria-label="Toggle navigation menu"
-      >
-        <div className="space-y-1">
-          <span className="block h-0.5 w-6 bg-current" />
-          <span className="block h-0.5 w-6 bg-current" />
-          <span className="block h-0.5 w-6 bg-current" />
-        </div>
-      </button>
-    </div>
-
-    <div className={cn(
-      "sm:hidden overflow-hidden transition-all duration-300",
-      mobileMenuOpen ? "max-h-[400px]" : "max-h-0"
-    )}>
-      <div className="flex flex-col gap-2 px-4 pb-4 pt-2 text-base text-muted-foreground bg-background/95 border-t border-border/30 backdrop-blur-md">
-        <a href="#hero" onClick={toggleMobileMenu} className="block rounded-md px-3 py-2 hover:bg-background/80">Home</a>
-        <a href="#about" onClick={toggleMobileMenu} className="block rounded-md px-3 py-2 hover:bg-background/80">About</a>
-        <a href="#products" onClick={toggleMobileMenu} className="block rounded-md px-3 py-2 hover:bg-background/80">Products</a>
-        <a href="#contact" onClick={toggleMobileMenu} className="block rounded-md px-3 py-2 hover:bg-background/80">Contact</a>
-      </div>
-    </div>
-  </nav>
-);
 
 function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: ScrollGlobeProps) {
   const [activeSection, setActiveSection] = useState(0);
@@ -306,6 +255,7 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
           >
           <div className={cn(
             "w-full max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-5xl will-change-transform transition-all duration-700",
+            index === 0 ? "mt-24 sm:mt-32 md:mt-40 lg:mt-48" : "",
             "opacity-100 translate-y-0"
           )}>
             
@@ -553,7 +503,7 @@ export default function GlobeScrollDemo() {
     {
       id: "hero",
       badge: "Welcome",
-      title: "Global Sourcing,",
+      title: "",
       subtitle: "Global Sourcing, Trusted Deliveries",
       description: "Premium Coated Calcium Carbonate & Industrial Chemicals — Import & Export Specialists. Connecting global manufacturers, distributors, and end-users through reliable sourcing and efficient supply chain solutions.",
       align: "left" as const,

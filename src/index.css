@@ -1,10 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@keyframes fadeOutLabel {
-  0% { opacity: 1; transform: translateX(0) scale(1); }
-  70% { opacity: 1; transform: translateX(0) scale(1); }
-  100% { opacity: 0; transform: translateX(0.5rem) scale(0.95); }
+@theme {
+  --color-background: rgb(10 10 15);
+  --color-foreground: rgb(255 255 255);
+  --color-border: rgba(255 255 255 0.1);
+  --color-card: rgb(15 15 21);
+  --color-card-foreground: rgb(255 255 255);
+  --color-muted: rgb(22 22 29);
+  --color-muted-foreground: rgb(226 232 240);
+  --color-primary: rgb(83 74 183);
+  --color-primary-foreground: rgb(255 255 255);
 }
 
 @layer base {
@@ -12,18 +18,18 @@
     color-scheme: dark;
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     background: #0A0A0F;
-    color: #e2e8f0;
+    color: #FFFFFF;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
     --background: 10 10 15;
-    --foreground: 232 232 240;
-    --border: 148 163 184;
+    --foreground: 255 255 255;
+    --border: 255 255 255 / 0.1;
     --card: 15 15 21;
-    --card-foreground: 232 232 240;
-    --muted: 71 85 105;
-    --muted-foreground: 148 163 184;
+    --card-foreground: 255 255 255;
+    --muted: 22 22 29;
+    --muted-foreground: 226 232 240;
     --primary: 83 74 183;
     --primary-foreground: 255 255 255;
   }
