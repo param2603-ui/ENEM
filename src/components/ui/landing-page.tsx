@@ -155,16 +155,17 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
       {/* Conditional Navbar - Hidden on hero, visible after scroll */}
       <Navbar isVisible={activeSection !== 0} mobileMenuOpen={mobileMenuOpen} toggleMobileMenu={toggleMobileMenu} />
 
-      {/* Hero Logo with animated background */}
+      {/* Animated background */}
       <div className="relative z-0">
         <SpaceBackground className="fixed inset-0 z-0 pointer-events-none" />
+      </div>
 
-        <div className={cn(
-          "fixed top-0 left-1/2 -translate-x-1/2 z-50 p-4 sm:p-6 md:p-8 transition-all duration-300",
-          activeSection === 0 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
-        )}>
-          <img src="/logo.png" alt="ENEM Corporation" className="h-32 sm:h-40 md:h-52 lg:h-64 w-auto" />
-        </div>
+      {/* Hero Logo - moved out of z-0 wrapper to ensure visibility above sections */}
+      <div className={cn(
+        "fixed top-0 left-1/2 -translate-x-1/2 z-50 p-4 sm:p-6 md:p-8 transition-all duration-300",
+        activeSection === 0 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
+      )}>
+        <img src="/logo.png" alt="ENEM Corporation" className="h-32 sm:h-40 md:h-52 lg:h-64 w-auto" />
       </div>
 
       {/* Progress Bar */}
@@ -318,8 +319,8 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
                   <div 
                     key={feature.title}
                     className={cn(
-                      "group p-4 sm:p-5 lg:p-6 rounded-lg sm:rounded-xl border bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5",
-                      "hover:border-primary/20 hover:-translate-y-1"
+                      "group p-4 sm:p-5 lg:p-6 rounded-lg sm:rounded-xl border border-white/20 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]",
+                      "hover:border-white/40 hover:-translate-y-1"
                     )}
                     style={{ animationDelay: `${featureIndex * 0.1}s` }}
                   >
@@ -338,7 +339,7 @@ function ScrollGlobe({ sections, globeConfig = defaultGlobeConfig, className }: 
             {section.features && section.id === 'contact' && (
               <div className="grid gap-3 sm:grid-cols-2 justify-items-center mb-8">
                 {section.features.map((feature) => (
-                  <div key={feature.title} className="w-full max-w-sm rounded-3xl border border-border/70 bg-background/80 p-3 sm:p-4 shadow-sm backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5">
+                  <div key={feature.title} className="w-full max-w-sm rounded-3xl border border-white/20 bg-background/80 p-3 sm:p-4 shadow-[0_0_15px_rgba(255,255,255,0.05)] backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5 hover:border-white/40">
                     <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/15 text-primary text-base sm:text-lg">
                       {(() => {
                         switch (feature.title) {
